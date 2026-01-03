@@ -1,23 +1,557 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Structured Data for Service and Offerings -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "5톤이사 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "5톤이사 전문 이삿짐센터",
+        "url": "https://yourdomain.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+82-10-1234-5678",
+          "contactType": "고객 서비스"
+        }
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "대한민국 전역"
+      },
+      "description": "2~3인 가구에 최적화된 5톤 이사 전문 서비스. 꼼꼼한 포장부터 합리적인 비용 안내까지.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "5톤이사 서비스 가격",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "5톤 포장이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "800000",
+              "priceCurrency": "KRW",
+              "description": "포장, 운송, 정리, 청소 모두 포함된 프리미엄 서비스"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "5톤 반포장이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "550000",
+              "priceCurrency": "KRW",
+              "description": "큰 짐 포장 및 운반 전문가, 잔짐 정리는 고객 부담"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "5톤 보관이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "900000",
+              "priceCurrency": "KRW",
+              "description": "장기 또는 단기 보관을 포함한 이사 서비스"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Google Fonts: Noto Sans KR for Korean text -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+      /* --- Global Reset and Typography --- */
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.8;
+        background-color: #f8fcfb; /* Soft light background */
+        color: #333;
+      }
+      a {
+        text-decoration: none;
+        color: #007bff;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: #0056b3;
+      }
+      h1, h2, h3, h4 {
+        color: #1a4a72; /* Darker blue for headings */
+        line-height: 1.4;
+      }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; border-bottom: 2px solid #e0eaf1; padding-bottom: 0.5rem; margin-top: 2rem; }
+      h3 { font-size: 1.5rem; color: #007bff; }
+      p { margin-bottom: 1rem; }
+
+      /* --- Layout Structure --- */
+      header {
+        background-color: #2c6f8a; /* Soft blue header */
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+      nav a {
+        color: white;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: #a3d4f1; /* Lighter blue on hover */
+      }
+      main {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      }
+
+      /* --- Section Styling --- */
+      section {
+        padding: 2rem 0;
+        border-bottom: 1px dashed #e0e0e0;
+      }
+      section:last-child {
+        border-bottom: none;
+      }
+      .service-card {
+        background-color: #f8fcfb;
+        border: 1px solid #e0eaf1;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .service-card h3 {
+        color: #0056b3;
+      }
+      .highlight-box {
+        background-color: #eaf6ff;
+        border: 1px solid #cce5ff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        font-weight: 500;
+      }
+
+      /* --- Table Styling --- */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+      th, td {
+        padding: 1rem;
+        border: 1px solid #e0eaf1;
+        text-align: left;
+      }
+      th {
+        background-color: #e0f0ff; /* Light blue header for table */
+        color: #1a4a72;
+        font-weight: 700;
+      }
+
+      /* --- FAQ Accordion Styling --- */
+      dl dt {
+        background-color: #f8fcfb;
+        border: 1px solid #e0eaf1;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        cursor: pointer;
+        font-weight: 500;
+        border-radius: 4px;
+        position: relative;
+      }
+      dl dt:after {
+        content: '+';
+        position: absolute;
+        right: 1rem;
+        font-weight: 700;
+        transition: transform 0.3s ease;
+      }
+      dl dt.active:after {
+        content: '-';
+      }
+      dl dd {
+        margin-left: 0;
+        padding: 1rem;
+        background-color: #ffffff;
+        border: 1px solid #e0eaf1;
+        border-top: none;
+        display: none;
+        border-radius: 0 0 4px 4px;
+      }
+      dl dt.active + dd {
+        display: block;
+      }
+
+      /* --- CTA Button Styling --- */
+      .cta-button {
+        display: inline-block;
+        background-color: #ff8c42; /* Soft orange/coral color */
+        color: white;
+        font-weight: 700;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        margin: 1.5rem 0;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .cta-button:hover {
+        background-color: #e67c3b;
+        transform: translateY(-2px);
+      }
+
+      /* --- Footer Styling --- */
+      footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.9rem;
+        color: #777;
+        background-color: #e0eaf1;
+        margin-top: 3rem;
+      }
+
+      /* --- Form Styling --- */
+      .quote-form input[type="text"],
+      .quote-form input[type="tel"],
+      .quote-form select,
+      .quote-form textarea {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Ensures padding doesn't increase element size */
+      }
+      .quote-form label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #1a4a72;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      /* --- Regional Keywords List Styling --- */
+      .regional-keywords {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+      .regional-keywords a {
+        background-color: #f0f8ff;
+        color: #007bff;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        border: 1px solid #cce5ff;
+        transition: background-color 0.3s ease;
+      }
+      .regional-keywords a:hover {
+        background-color: #d1e7ff;
+      }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>전국 5톤이사 전문 이삿짐센터 | 2026년 이사비용 최저가 견적 비교</h1>
+        <nav aria-label="메인 내비게이션">
+            <ul>
+                <li><a href="#intro">5톤이사란?</a></li>
+                <li><a href="#services">서비스 종류</a></li>
+                <li><a href="#price-guide">이사비용 견적</a></li>
+                <li><a href="#checklist">이사 체크리스트</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#contact">무료 견적 문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: Introduction to 5-ton Moving -->
+        <section id="intro">
+            <h2>합리적인 5톤이사, 왜 전문가와 함께해야 할까요?</h2>
+            <p><strong>5톤이사</strong>는 일반적으로 2~3인 가구, 또는 30평대 아파트 이사에 가장 적합한 이사 규모입니다. 짐의 양이 상당하며, 가구나 가전제품 등 크고 무거운 물품들이 많기 때문에 전문적인 <strong>5톤 포장이사</strong> 서비스가 필수적입니다. 단순히 짐을 옮기는 것을 넘어, 고객님의 소중한 물건을 안전하게 포장하고 운반하며, 새로운 보금자리에서 깔끔하게 정리까지 해주는 것이 <strong>5톤이사 전문 이삿짐센터</strong>의 역할입니다.</p>
+            <p>2026년 이사 시장의 트렌드는 '가성비'와 '안전'입니다. 수많은 이삿짐센터 중 어떤 업체를 선택해야 할지 고민이시라면, <strong>5톤이사 비용</strong>의 투명한 공개와 함께 이사 전문가의 노하우를 제공하는 저희와 상담해 보세요. 단순히 저렴한 가격만을 강조하는 업체보다는, 합리적인 견적과 확실한 서비스 품질을 보장하는 곳을 선택하는 것이 장기적으로 만족도를 높이는 방법입니다.</p>
+        </section>
+
+        <!-- Section 2: Types of 5-ton Moving Services -->
+        <section id="services">
+            <h2>맞춤형 5톤이사 서비스 종류 및 특징</h2>
+            <p>고객님의 이사 상황과 예산에 따라 다양한 <strong>5톤이사 서비스</strong>를 선택하실 수 있습니다. 짐의 양과 이사 난이도를 고려하여 최적의 방식을 제안해 드립니다. 특히 <strong>5톤 포장이사</strong>는 이사 경험이 부족하거나 시간이 부족한 맞벌이 부부에게 가장 인기 있는 서비스입니다.</p>
+
+            <div class="service-card">
+                <h3>5톤 포장이사 (Full Package Moving)</h3>
+                <p><strong>가장 완벽한 이사 솔루션</strong>입니다. 5톤 포장이사는 짐 포장부터 운송, 정리정돈, 청소(바닥 청소, 스팀 청소)까지 모든 과정을 이사 전문가들이 책임집니다. 고객님은 이사 당일 아침에 문만 열어주시면, 저녁에는 모든 짐이 정리된 새집에서 휴식을 취하실 수 있습니다. 특히 <strong>파손 방지를 위한 맞춤형 포장재 사용</strong>과 꼼꼼한 정리정돈 서비스는 5톤 포장이사의 핵심 강점입니다.</p>
+                <ul>
+                    <li>특징: 모든 과정 전문가 전담, 짐 정리 및 배치, 청소 서비스 제공</li>
+                    <li>추천 대상: 짐이 많은 30평대 아파트, 이사 준비에 시간을 낼 수 없는 고객</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>5톤 반포장이사 (Semi-Package Moving)</h3>
+                <p><strong>포장이사와 일반이사의 장점을 결합한 합리적인 선택</strong>입니다. 5톤 반포장이사는 이삿짐센터 전문가들이 큰 가구나 가전제품, 파손되기 쉬운 물품 위주로 포장 및 운반을 담당하고, 잔짐(옷가지, 주방용품 등) 포장과 정리정돈은 고객님께서 직접 진행하는 방식입니다. <strong>5톤이사 비용</strong>을 절약하면서도 전문가의 도움을 받고 싶은 고객께 적합합니다.</p>
+                <ul>
+                    <li>특징: 비용 절감 효과, 큰 짐 포장 전문가 지원, 잔짐은 고객 담당</li>
+                    <li>추천 대상: 비용 절감을 원하는 고객, 잔짐 정리를 직접 할 수 있는 여유가 있는 고객</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>5톤 보관이사 (Storage Moving)</h3>
+                <p><strong>이사 날짜가 맞지 않을 때 필요한 서비스</strong>입니다. 새집 입주 날짜와 현 거주지 퇴거 날짜가 맞지 않아 짐을 일정 기간 보관해야 할 때 <strong>5톤 보관이사</strong> 서비스를 이용합니다. 이삿짐을 포장하여 안전한 보관소에 보관한 후, 원하는 날짜에 맞춰 새집으로 운송 및 정리해 드립니다. 짐 보관 기간 동안 도난 및 파손 방지를 위한 철저한 관리가 이루어집니다.</p>
+                <ul>
+                    <li>특징: 일정 기간 짐 보관, 보관소 환경 관리, 장기/단기 보관 가능</li>
+                    <li>추천 대상: 입주 날짜가 맞지 않는 고객, 인테리어 공사 등으로 임시 보관이 필요한 고객</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: 5-ton Moving Cost Guide and Analysis -->
+        <section id="price-guide">
+            <h2>5톤 포장이사 비용 가이드 및 견적 산출 방법 (2026년 기준)</h2>
+            <p><strong>5톤이사 비용</strong>은 짐의 양, 이사 날짜, 이동 거리, 작업 환경 등 여러 요소에 따라 크게 달라집니다. 특히 2026년에는 인건비와 물가 상승 요인으로 인해 <strong>이사비용</strong>이 소폭 상승하는 추세를 보이고 있습니다. 정확한 견적을 알기 위해서는 반드시 방문 견적을 받는 것이 중요합니다.</p>
+
+            <h3>주요 이사 비용 변동 요인 분석</h3>
+            <div class="highlight-box">
+                <h4>1. 이사 날짜 (손없는 날, 주말, 평일)</h4>
+                <p>손없는 날(음력 9, 10, 19, 20, 29, 30일)은 이사 수요가 집중되어 <strong>5톤 포장이사 비용</strong>이 평일 대비 10~30% 가량 상승합니다. 주말 역시 평일 대비 비용이 높으므로, 비용 절약을 원한다면 평일 이사를 고려해야 합니다.</p>
+                <h4>2. 이사 짐의 양 (정확한 5톤 기준)</h4>
+                <p><strong>5톤이사</strong>는 짐의 양에 따라 5톤 차량 1대 또는 1.5대가 사용될 수 있습니다. 짐이 많아 추가 차량이나 인력이 필요할 경우 비용이 증가합니다. 짐의 양을 정확히 확인하기 위해 방문 견적 시 불필요한 짐을 미리 처분하는 것이 좋습니다.</p>
+                <h4>3. 작업 환경 (층수, 엘리베이터, 사다리차)</h4>
+                <p>이사할 곳의 층수와 엘리베이터 유무는 비용에 큰 영향을 미칩니다. 엘리베이터가 없거나 층수가 높은 경우, 사다리차 사용이 필수적이며 사다리차 사용료가 추가됩니다. 특히 짐이 많은 <strong>5톤 포장이사</strong>의 경우 사다리차 사용 여부가 비용을 좌우하는 중요한 요소입니다.</p>
+            </div>
+
+            <p>아래 표는 2026년 기준, <strong>5톤이사</strong>의 대략적인 견적 시작 가격을 보여줍니다. 정확한 금액은 전문가의 방문 견적을 통해 확인해 주세요.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>서비스 종류</th>
+                        <th>대략적인 시작 비용 (원)</th>
+                        <th>적합한 가구 규모</th>
+                        <th>비용 변동 요인</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>5톤 포장이사</td>
+                        <td>800,000 ~ 1,500,000</td>
+                        <td>30평대 아파트, 2~3인 가구</td>
+                        <td>손없는 날, 짐의 양, 사다리차 유무</td>
+                    </tr>
+                    <tr>
+                        <td>5톤 반포장이사</td>
+                        <td>550,000 ~ 1,000,000</td>
+                        <td>비용 절감 희망 고객, 짐 정리 가능 고객</td>
+                        <td>잔짐 포장 비율, 이사 거리</td>
+                    </tr>
+                    <tr>
+                        <td>5톤 보관이사</td>
+                        <td>1,000,000 ~ (보관료 별도)</td>
+                        <td>입주 날짜 불일치 고객</td>
+                        <td>보관 기간, 보관소 환경</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 4: External Resources and Service Area Expansion (SEO Optimization) -->
+        <section id="external-resources">
+            <h2>신뢰할 수 있는 이사 정보 및 외부 사이트 참고 (2026년 최신 정보)</h2>
+            <p>성공적인 이사를 위해서는 전문 이삿짐센터의 도움 외에도 관련 정보를 사전에 숙지하는 것이 중요합니다. 아래는 이사와 관련된 공신력 있는 기관의 정보와 참고 자료입니다. 저희는 투명한 정보 제공을 통해 고객님의 이사 만족도를 높이고자 합니다.</p>
+
+            <ul>
+                <li><strong>국토교통부 이사 화물 운송 관련 법규 안내:</strong> 이사 서비스 이용 시 소비자가 보호받을 수 있는 법적 기준을 확인하여 계약 전 필수 확인사항을 점검할 수 있습니다. <a href="https://www.molit.go.kr" target="_blank">국토교통부 웹사이트</a></li>
+                <li><strong>한국소비자원 피해 구제 사례:</strong> 이사 서비스 이용 중 발생할 수 있는 분쟁 사례와 피해 구제 절차를 통해 신뢰성 있는 업체를 선별하는 기준을 배울 수 있습니다. <a href="https://www.kca.go.kr" target="_blank">한국소비자원 웹사이트</a></li>
+                <li><strong>이삿짐 운반비용 산정 기준:</strong> 이사 운임 및 요금 산정 기준에 대한 상세 정보를 참고하여 <strong>5톤이사 비용</strong>을 비교 분석할 수 있습니다. (예시: <a href="https://www.nso.go.kr" target="_blank">통계청 웹사이트</a>)</li>
+                <li><strong>나무위키 - 포장이사 정의 및 특징:</strong> 포장이사와 일반이사의 개념 차이를 명확하게 이해할 수 있습니다. <a href="https://namu.wiki/w/%ED%8F%AC%EC%9E%A5%EC%9D%B4%EC%82%AC" target="_blank">나무위키</a></li>
+            </ul>
+
+            <h3>전국 5톤이사 서비스 가능 지역 (30+ 지역 키워드)</h3>
+            <p>저희는 서울, 경기, 인천을 포함한 수도권 전역과 부산, 대구, 대전, 광주 등 전국 주요 도시에서 <strong>5톤이사 서비스</strong>를 제공합니다. 어디든 고객님이 계신 곳으로 찾아가 전문적인 이사 서비스를 제공합니다. <strong>5톤이사</strong>를 검색할 때 고객님 지역의 이삿짐센터를 찾고 있다면 아래 목록을 참고해 주세요.</p>
+            <div class="regional-keywords">
+                <a href="#">서울 5톤이사</a>
+                <a href="#">경기 5톤이사</a>
+                <a href="#">인천 5톤이사</a>
+                <a href="#">부산 5톤이사</a>
+                <a href="#">대구 5톤이사</a>
+                <a href="#">대전 5톤이사</a>
+                <a href="#">광주 5톤이사</a>
+                <a href="#">울산 5톤이사</a>
+                <a href="#">세종 5톤이사</a>
+                <a href="#">강원 5톤이사</a>
+                <a href="#">춘천 5톤이사</a>
+                <a href="#">청주 5톤이사</a>
+                <a href="#">천안 5톤이사</a>
+                <a href="#">전주 5톤이사</a>
+                <a href="#">목포 5톤이사</a>
+                <a href="#">구미 5톤이사</a>
+                <a href="#">창원 5톤이사</a>
+                <a href="#">제주 5톤이사</a>
+                <a href="#">수원 5톤이사</a>
+                <a href="#">용인 5톤이사</a>
+                <a href="#">성남 5톤이사</a>
+                <a href="#">고양 5톤이사</a>
+                <a href="#">화성 5톤이사</a>
+                <a href="#">남양주 5톤이사</a>
+                <a href="#">안산 5톤이사</a>
+                <a href="#">평택 5톤이사</a>
+                <a href="#">시흥 5톤이사</a>
+                <a href="#">김포 5톤이사</a>
+                <a href="#">부천 5톤이사</a>
+                <a href="#">의정부 5톤이사</a>
+                <a href="#">하남 5톤이사</a>
+                <a href="#">파주 5톤이사</a>
+            </div>
+        </section>
+
+        <!-- Section 5: Moving Checklist (Increased Dwell Time) -->
+        <section id="checklist">
+            <h2>성공적인 5톤이사 준비를 위한 체크리스트</h2>
+            <p>이사 준비는 단순히 짐을 싸는 것 이상의 복잡한 절차가 필요합니다. 특히 <strong>5톤이사</strong> 규모에서는 챙겨야 할 서류와 물품이 많습니다. 아래 체크리스트를 활용하여 꼼꼼하게 이사를 준비해 보세요.</p>
+            <div class="service-card">
+                <h3>이사 2주 전</h3>
+                <ul>
+                    <li>이삿짐센터 선정 및 계약: 2~3곳 비교 견적을 통해 <strong>5톤 포장이사 비용</strong>과 서비스 품질 확인</li>
+                    <li>불필요한 짐 정리: 사용하지 않는 물건은 미리 처분하여 짐 부피 줄이기 (<strong>이사비용 절약 효과</strong>)</li>
+                    <li>이사 날짜 확정 및 예약: 특히 손없는 날은 일찍 예약 마감되므로 서두르기</li>
+                    <li>가전 및 가구 점검: 에어컨, 벽걸이 TV 등 설치/철거가 필요한 품목 확인</li>
+                    <li>우편물 주소 변경 신청: 우체국 방문 또는 인터넷 우체국(전입신고 시 일괄처리 가능)</li>
+                </ul>
+                <h3>이사 1주 전</h3>
+                <ul>
+                    <li>각종 공과금 및 관리비 정산: 아파트 관리사무소, 전기, 수도, 가스 요금 정산</li>
+                    <li>이사 갈 집 청소 계획: 입주 청소 예약 (이사 당일 짐이 들어가기 전 진행)</li>
+                    <li>은행 및 관공서 업무 처리: 전학/전입 신고, 자동차 주소 변경 등</li>
+                    <li>음식물 정리: 이사 당일 음식물 쓰레기를 최소화할 수 있도록 냉장고 정리</li>
+                </ul>
+                <h3>이사 당일</h3>
+                <ul>
+                    <li>귀중품 보관: 현금, 통장, 인감 등 귀중품은 따로 챙겨 직접 관리</li>
+                    <li>이사 후 점검: 가스, 전기 계량기 확인 및 수도 잠금 확인</li>
+                    <li>이사 마무리: <strong>5톤이사</strong> 작업 후 짐 정리 상태와 파손 여부 확인 (파손 시 즉시 현장 보고)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: FAQ (Increased Dwell Time with interactive elements) -->
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ) - 5톤 포장이사 편</h2>
+            <dl>
+                <dt tabindex="0" aria-expanded="false">Q1. 5톤 이사의 짐은 어느 정도 규모인가요?</dt>
+                <dd>A. <strong>5톤이사</strong>는 보통 2~3인 가구의 짐 양을 기준으로 합니다. 30평대 아파트 이사 시 짐이 많지 않은 경우에 해당하며, 짐이 매우 많거나 4인 이상 가구라면 6~7톤(5톤 차량+1톤 용달 추가) 이사로 분류될 수 있습니다. 짐의 양에 따라 차량 대수와 인력이 달라지므로 <strong>5톤 포장이사 견적</strong> 시 정확한 짐 양을 알려주셔야 합니다.</dd>
+                <dt tabindex="0" aria-expanded="false">Q2. 이사 비용 외 추가 요금은 어떤 경우에 발생하나요?</dt>
+                <dd>A. 기본 <strong>5톤이사 비용</strong> 외에 발생할 수 있는 추가 요금 항목으로는 사다리차 이용료(층수에 따라), 에어컨 탈부착 비용, 벽걸이 TV 설치 비용, 폐기물 처리 비용, 짐이 예상보다 많아 추가 인력/차량이 투입되는 경우 등이 있습니다. 견적 상담 시 이러한 추가 요소를 미리 확인하는 것이 중요합니다.</dd>
+                <dt tabindex="0" aria-expanded="false">Q3. 짐 파손 시 보상 처리는 어떻게 되나요?</dt>
+                <dd>A. 저희는 이사 화물 배상 책임 보험에 가입되어 있습니다. 이사 중 짐 파손이 발생할 경우, 현장에서 즉시 담당자에게 알리고 사진을 촬영해 두시면, 보험 약관에 따라 신속하고 정직하게 배상 처리를 진행해 드립니다. <strong>5톤 포장이사</strong> 서비스는 전문 인력이 꼼꼼하게 포장하지만, 귀중품은 고객께서 직접 관리하시는 것을 권장합니다.</dd>
+                <dt tabindex="0" aria-expanded="false">Q4. 이사 견적은 언제 받는 것이 가장 좋나요?</dt>
+                <dd>A. 이사 날짜가 확정되면 최소 1~2개월 전에 견적을 받는 것이 좋습니다. 특히 손없는 날이나 주말 이사는 예약이 빠르게 마감되므로, 원하는 날짜에 맞춰 <strong>5톤이사</strong> 전문가를 확보하려면 서둘러야 합니다. 이사 날짜가 임박해서 예약할 경우 비용이 상승할 수 있습니다.</dd>
+                <dt tabindex="0" aria-expanded="false">Q5. 5톤 포장이사 시 음식물이나 귀중품은 어떻게 하나요?</dt>
+                <dd>A. 음식물은 포장 후 아이스박스에 담아 운송해 드리지만, 변질 우려가 있는 상하기 쉬운 음식물은 미리 처분해 주시는 것이 좋습니다. 현금, 유가증권, 고가품, 계약서 등 중요 서류는 고객님께서 직접 운반하시는 것이 안전합니다.</dd>
+            </dl>
+        </section>
+
+        <!-- Section 7: Quote Request Form (Increased Dwell Time) -->
+        <section id="contact">
+            <h2>5톤 포장이사 무료 견적 문의 (2026년 이사 준비)</h2>
+            <p><strong>5톤이사 비용</strong>을 정확하게 확인하고 싶으신가요? 고객님의 이사 환경과 짐의 양을 파악하여 <strong>가장 합리적인 5톤이사 견적</strong>을 무료로 제공해 드립니다. 아래 양식을 작성해 주시면 전문가가 신속하게 연락드리겠습니다.</p>
+            <form action="#" method="post" class="quote-form">
+                <div class="form-group">
+                    <label for="name">성함</label>
+                    <input type="text" id="name" name="name" placeholder="이름을 입력해 주세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-xxxx-xxxx" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+                </div>
+                <div class="form-group">
+                    <label for="move-type">이사 종류 선택</label>
+                    <select id="move-type" name="move-type" required>
+                        <option value="">이사 종류 선택</option>
+                        <option value="5ton-packing">5톤 포장이사</option>
+                        <option value="5ton-semi">5톤 반포장이사</option>
+                        <option value="5ton-storage">5톤 보관이사</option>
+                        <option value="office-move">사무실 이사 (5톤 이상)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="move-date">이사 희망 날짜</label>
+                    <input type="date" id="move-date" name="move-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="origin-address">출발지 주소 (시/군/구)</label>
+                    <input type="text" id="origin-address" name="origin-address" placeholder="예: 서울특별시 강남구" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination-address">도착지 주소 (시/군/구)</label>
+                    <input type="text" id="destination-address" name="destination-address" placeholder="예: 경기도 성남시 분당구" required>
+                </div>
+                <div class="form-group">
+                    <label for="move-details">추가 요청 사항 (이사 짐, 특이사항 등 상세 내용)</label>
+                    <textarea id="move-details" name="move-details" rows="5" placeholder="이사 짐의 대략적인 양(30평대 아파트 짐), 사다리차 유무, 에어컨 설치 등 상세 내용을 알려주세요."></textarea>
+                </div>
+                <button type="submit" class="cta-button">무료 견적 요청하기</button>
+            </form>
+        </section>
+
     </main>
-  </body>
-</html>
+
+    <footer>
+        <p>&copy; 2026 5톤이사 전문 이삿짐센터. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for FAQ Accordion Functionality -->
+    <script>
+      document.querySelectorAll('dl dt').forEach((dt) => {
+        dt.addEventListener('click', () => {
+          dt.classList.toggle('active');
+          let dd = dt.nextElementSibling;
+          let expanded = dt.getAttribute('aria-expanded') === 'true';
+          dt.setAttribute('aria-expanded', !expanded);
+          if (dd) {
+            dd.style.display = dt.classList.contains('active') ? 'block' : 'none';
+          }
+        });
+        dt.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            dt.click();
+          }
+        });
+      });
+    </script>
+
+
+  
